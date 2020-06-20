@@ -5,15 +5,17 @@ import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from '@apollo/c
 
 import { ProductsList } from './screens/ProductsList';
 import { ProductDetails } from './screens/ProductDetails';
+import { GRAPHQL_URL } from './config/index.js';
 
-const Stack = createStackNavigator();
 
 const client = new ApolloClient({
 
-  uri: 'http://localhost:1337/graphql',
   cache: new InMemoryCache(),
-  
+  uri: GRAPHQL_URL,
 });
+
+const Stack = createStackNavigator();
+
 
 export default function() {
   return (
@@ -21,7 +23,7 @@ export default function() {
     <ApolloProvider client={client}>
 
       <NavigationContainer>
-        <Stack.Navigator 
+        <Stack.Navigator
           screenOptions={{
             headerBackTitleVisible: false,
             headerTintColor: 'black'

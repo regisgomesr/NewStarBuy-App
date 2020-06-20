@@ -3,6 +3,7 @@ import { View, StyleSheet, Text, Button, FlatList } from 'react-native';
 import { useQuery } from '@apollo/client';
 
 import { GET_ALL_PRODUCTS } from '../graphql/requests.js';
+import { Product } from '../components/Product.js';
 
 
 
@@ -10,26 +11,33 @@ export function ProductsList({ navigation }) {
 
   const {data, loading, error} = useQuery(GET_ALL_PRODUCTS);
 
-  if(loading || error) return null;
+
+  if (loading) {
+    return <Text>Loading...</Text>
+  } 
+  if (error) {
+    return <Text>{error.toString()}</Text>
+  }
+
+  function renderProduct({ item: product }) {
+    return <Product product={product} onPress={() => {
+      navigation.navigate('ProductDetails');
+    }} />
+  }
 
   return (
-    <View style={styles.container}>
+  
       <FlatList
-        data={data.products} 
-        renderItem={({item}) => <Text style={styles.nameProduct}>{item.name}</Text>}
+        contentContainerStyle={styles.productsListContainer}
+        data={data.products}
+        renderItem={renderProduct}
       />
-    </View>
+    
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  nameProduct: {
-    top: 200,
-    color: '#13131a'
+  productsListContainer: {
+    backgroundColor: '#f3f3f3'
   }
 })
