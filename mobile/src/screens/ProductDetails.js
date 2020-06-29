@@ -1,39 +1,100 @@
 import React from 'react'
-import { View, StyleSheet, Text, Button } from 'react-native'
-import { GET_PRODUCT } from '../graphql/requests';
+import { View, StyleSheet, Text, Button, FlatList } from 'react-native'
+import { GET_PRODUCT, GET_COMMENTS_BY_PRODUCT } from '../graphql/requests';
 import { useQuery } from '@apollo/client';
 import { Loading } from '../components/Loading';
 import { Error } from '../components/Error';
 import { Product } from '../components/Product';
+import { Card } from '../components/Card';
 
 
 export function ProductDetails({ route }) {
   const { productId } = route.params;
 
-  const { loading, error, data } = useQuery(GET_PRODUCT, {
+  const { 
+    loading: productLoading, 
+    error: productError, 
+    data: productData,
+    } = useQuery(GET_PRODUCT, {
     variables: {
       productId,
     },
+    fetchPolicy: 'cache-first',
   });
 
-  if(loading) {
+  const {
+    loading: commentsLoading,
+    error: commentsError,
+    data: commentsData
+  } = useQuery(GET_COMMENTS_BY_PRODUCT, {
+    variables: {
+      productId,
+    },
+    fetchPolicy: 'cache-and-network',
+  });
+
+  if(productLoading) {
     return <Loading />
   }
 
-  if(error) {
-    return <Error error={error} />
+  if(productError) {
+    return <Error error={productError} />
   }
 
+  function renderComment({ item: comment }) {
+    return (
+      <Card id={comment.id} style={styles.commentCard}>
+        <Text>{comment.comment}</Text>
+      </Card>
+    )
+  }
+
+  function renderNumberOfComments() {
+    return (
+      <Text style={styles.title}>
+        {commentsData && commentsData.comments.length > 0
+          ? `Comentários [${commentsData.comments.length}]`
+          : 'Nenhum coméntario'}
+      </Text>
+    )
+  }
+
+  function renderHeader() {
+    return (
+      <>
+        <Product product={productData.product} />
+
+        {commentsLoading && <Loading />}
+        {commentsError && <Error error={commentsError} />}
+
+        {renderNumberOfComments()}
+
+      </>
+    )
+  }
 
   return (
-    <Product product={data.product} />
+    <FlatList
+      data={commentsData ? commentsData.comments : []}
+      renderItem={renderComment}
+      ListHeaderComponent={renderHeader()}
+      contentContainerStyle={styles.commentsContainer}
+    />
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  commentsContainer: {
+
+  },
+  commentCard: {
+    padding: 16,
+    marginVertical: 8,
+    marginHorizontal: 8
+  },
+  title: {
+    marginVertical: 8,
+    marginHorizontal: 8,
+    fontWeight: 'bold'
   }
 })

@@ -46,7 +46,7 @@ export function Product({ product, onPress }) {
 const styles = StyleSheet.create({
   card: {
     marginVertical: 20,
-    marginHorizontal: 15
+    marginHorizontal: 8
   },
   thumb: {
     height: 260,
