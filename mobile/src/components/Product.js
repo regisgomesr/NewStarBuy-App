@@ -15,9 +15,6 @@ export function Product({ product, onPress }) {
     },
   });
 
-  console.log(BASE_URL);
-  console.log(product);
-
   return (
     <Card style={styles.card} onPress={onPress}>
 
@@ -49,6 +46,7 @@ export function Product({ product, onPress }) {
 const styles = StyleSheet.create({
   card: {
     marginVertical: 20,
+    marginHorizontal: 15
   },
   thumb: {
     height: 260,

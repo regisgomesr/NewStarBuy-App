@@ -29,9 +29,17 @@ export function ProductsList({ navigation }) {
   }
 
   function renderProduct({ item: product }) {
-    return <Product product={product} onPress={() => {
-      navigation.navigate('ProductDetails');
-    }} />
+    return (
+      <Product 
+        product={product} 
+        onPress={() => {
+          navigation.navigate('ProductDetails', {
+            productId: product.id,
+          });
+        }} 
+        
+      />
+    );
   }
 
   return (

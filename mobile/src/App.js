@@ -42,7 +42,13 @@ export default function() {
               headerRight: () => <HeaderFavoriteProductsCount />,
             }}
           />
-          <Stack.Screen name={'ProductDetails'} component={ProductDetails} />
+          <Stack.Screen 
+            name={'ProductDetails'} 
+            component={ProductDetails} 
+            options={{
+              headerRight: () => <HeaderFavoriteProductsCount />
+            }}  
+          />
         </Stack.Navigator>
       </NavigationContainer>
 

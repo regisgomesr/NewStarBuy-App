@@ -34,3 +34,20 @@ export const GET_FAVORITE_PRODUCTS_COUNT = gql`
     favoriteProductsCount @client
   }
 `;
+
+export const GET_PRODUCT = gql`
+
+  query GetProduct($productId: ID!) {
+    product(id: $productId) {
+      id
+      name
+      price
+      description
+      favorite @client
+      thumb {
+        id
+        url
+      }
+    }
+  }
+`;
