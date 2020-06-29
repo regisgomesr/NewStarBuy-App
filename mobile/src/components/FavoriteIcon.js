@@ -2,16 +2,16 @@ import React from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { Svg, Path } from 'react-native-svg';
 
-export function FavoriteIcon({}) {
+export function FavoriteIcon({favorite, onPress}) {
 
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
 
       <Svg
         width={32}
         height={32}
         viewBox="0 0 24 24"
-        fill="none"
+        fill={favorite ? 'white' : 'none'}
         stroke="white"
         strokeWidth={2}
         strokeLinecap="round"
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     right: 16,
-    top: 260 + 16 - 64 / 2,
+    top: 260 - 64 / 2,
     height: 64,
     width: 64,
     borderRadius: 80 / 2,

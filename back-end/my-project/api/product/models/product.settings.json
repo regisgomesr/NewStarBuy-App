@@ -33,8 +33,11 @@
       "required": true
     },
     "comments": {
-      "via": "product",
-      "collection": "comment"
+      "collection": "comment",
+      "via": "product"
+    },
+    "favorite": {
+      "type": "boolean"
     }
   }
 }

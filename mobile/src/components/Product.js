@@ -3,18 +3,27 @@ import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
 import { BASE_URL, GRAPHQL_URL } from '../config';
 
 import { FavoriteIcon } from './FavoriteIcon.js';
+import { useMutation } from '@apollo/client';
+import {Card} from './Card';
+import { ADD_OR_REMOVE_PRODUCT_FROM_FAVORITE } from '../graphql/requests';
 
 export function Product({ product, onPress }) {
 
+  const [addOrRemoveProductFromFavorite] = useMutation(ADD_OR_REMOVE_PRODUCT_FROM_FAVORITE, {
+    variables: {
+      productId: product.id,
+    },
+  });
+
+  console.log(BASE_URL);
   console.log(product);
-  console.log(BASE_URL + product.thumb.url);
 
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress}>
+    <Card style={styles.card} onPress={onPress}>
 
       <Image 
         style={styles.thumb}
-        source={{uri: `${BASE_URL}/uploads/arroz_tio_joao_7799475426.jpeg`}}
+        source={{uri: `${BASE_URL}/uploads/arroz_tio_joao_7799475426.jpeg` }} // BASE_URL + product.thumb.url ${BASE_URL}/uploads/arroz_tio_joao_7799475426.jpeg
       />
 
       <View style={styles.infoContainer}>
@@ -26,33 +35,25 @@ export function Product({ product, onPress }) {
         <Text style={styles.description}>{product.description}</Text>
       </View>
 
-      <FavoriteIcon />
+      <FavoriteIcon 
+        favorite={product.favorite} 
+        onPress={async () => {
+          await addOrRemoveProductFromFavorite();
+        }} 
+      />
 
-    </TouchableOpacity>
+    </Card>
   )
 }
 
 const styles = StyleSheet.create({
   card: {
     marginVertical: 20,
-    marginHorizontal: 10,
-    borderRadius: 16,
-
-    backgroundColor: 'white',
-
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    shadowColor: 'black',
-    shadowOffset: {
-      height: 0,
-      width: 0
-    }
   },
   thumb: {
     height: 260,
-    // borderTopRightRadius: 16,
-    // borderTopLeftRadius: 16,
-    marginTop: 16
+    borderTopRightRadius: 16,
+    borderTopLeftRadius: 16,
   },
   infoContainer: {
     padding: 16

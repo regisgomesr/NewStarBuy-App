@@ -4,19 +4,28 @@ import { useQuery } from '@apollo/client';
 
 import { GET_ALL_PRODUCTS } from '../graphql/requests.js';
 import { Product } from '../components/Product.js';
+import { Loading } from '../components/Loading.js';
+import { Error } from '../components/Error.js';
 
 
 
 export function ProductsList({ navigation }) {
 
-  const {data, loading, error} = useQuery(GET_ALL_PRODUCTS);
+  const {data, loading, error} = useQuery(GET_ALL_PRODUCTS, {
+    options: {
+      fetchPolicy: 'cache-and-network',
+    }
+  });
+
+  console.log(data);
 
 
   if (loading) {
-    return <Text>Loading...</Text>
-  } 
+    return <Loading />
+  }
+
   if (error) {
-    return <Text>{error.toString()}</Text>
+    return <Error error={error} />
   }
 
   function renderProduct({ item: product }) {
@@ -28,6 +37,7 @@ export function ProductsList({ navigation }) {
   return (
   
       <FlatList
+        style={styles.ProductsList}
         contentContainerStyle={styles.productsListContainer}
         data={data.products}
         renderItem={renderProduct}
