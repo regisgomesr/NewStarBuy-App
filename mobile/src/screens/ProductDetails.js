@@ -6,6 +6,7 @@ import { Loading } from '../components/Loading';
 import { Error } from '../components/Error';
 import { Product } from '../components/Product';
 import { Card } from '../components/Card';
+import { AddComment } from '../components/AddComment';
 
 
 export function ProductDetails({ route }) {
@@ -60,9 +61,13 @@ export function ProductDetails({ route }) {
   }
 
   function renderHeader() {
+    const {product} = productData;
+
     return (
       <>
-        <Product product={productData.product} />
+        <Product product={product} />
+
+        <AddComment productId={product.id} />
 
         {commentsLoading && <Loading />}
         {commentsError && <Error error={commentsError} />}
@@ -95,6 +100,8 @@ const styles = StyleSheet.create({
   title: {
     marginVertical: 8,
     marginHorizontal: 8,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginTop: 16,
+    marginBottom: 8,
   }
 })

@@ -20,7 +20,7 @@ export function Product({ product, onPress }) {
 
       <Image 
         style={styles.thumb}
-        source={{uri: `${BASE_URL}/uploads/arroz_tio_joao_7799475426.jpeg` }} // BASE_URL + product.thumb.url ${BASE_URL}/uploads/arroz_tio_joao_7799475426.jpeg
+        source={{uri: `${BASE_URL}/uploads/tomate_f28121604c.jpeg` }} // BASE_URL + product.thumb.url ${BASE_URL}/uploads/arroz_tio_joao_7799475426.jpeg
       />
 
       <View style={styles.infoContainer}>

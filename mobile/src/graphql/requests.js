@@ -61,3 +61,14 @@ export const GET_COMMENTS_BY_PRODUCT = gql`
     }
   }
 `;
+
+export const CREATE_COMMENT = gql`
+  mutation CreateComment($comment: String!, $productId: ID!) {
+    createComment(input: {data: {comment: $comment, product: $productId}}) {
+      comment {
+        id
+        comment
+      }
+    }
+  }
+`;
