@@ -75,7 +75,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    marginHorizontal: 8
+    marginHorizontal: 8,
+    marginBottom: 8
   },
   input: {
     flex: 1,

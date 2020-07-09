@@ -2,8 +2,18 @@ import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
 
 
-export function Loading() {
-  return <ActivityIndicator />
+export function Loading({ hasBackground }) {
+  return  (
+    <ActivityIndicator 
+      style={[
+        styles.loadingIndicator, 
+        {
+          backgroundColor: hasBackground ? '#fafafa' : 'none',
+        },
+      
+      ]}
+    />
+  )
 }
 
 

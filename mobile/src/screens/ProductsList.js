@@ -13,7 +13,7 @@ export function ProductsList({ navigation }) {
 
   const {data, loading, error} = useQuery(GET_ALL_PRODUCTS, {
     options: {
-      fetchPolicy: 'cache-and-network',
+      fetchPolicy: 'cache-first',
     }
   });
 
@@ -21,7 +21,7 @@ export function ProductsList({ navigation }) {
 
 
   if (loading) {
-    return <Loading />
+    return <Loading hasBackground />
   }
 
   if (error) {

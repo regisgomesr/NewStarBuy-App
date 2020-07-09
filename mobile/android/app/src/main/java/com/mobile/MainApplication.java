@@ -1,17 +1,22 @@
 package com.mobile;
 
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
+import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Arrays;
+import com.facebook.react.shell.MainReactPackage;
+import com.horcrux.svg.SvgPackage;
 
-import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -22,16 +27,19 @@ public class MainApplication extends Application implements ReactApplication {
           return BuildConfig.DEBUG;
         }
 
-        @Override
+        //@Override
         protected List<ReactPackage> getPackages() {
-          // @SuppressWarnings("UnnecessaryLocalVariable")
-          // List<ReactPackage> packages = new PackageList(this).getPackages();
+          @SuppressWarnings("UnnecessaryLocalVariable")
+          List<ReactPackage> packages = new PackageList(this).getPackages();
           return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
-            new AsyncStoragePackage()
+            new AsyncStoragePackage(),
+            new RNGestureHandlerPackage(),
+            new SafeAreaContextPackage(),
+            new SvgPackage()
           );
           
-          //return packages;
+          // return packages;
         }
 
         @Override
