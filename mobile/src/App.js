@@ -14,6 +14,7 @@ import { cache } from './graphql/cache';
 import { resolvers } from './graphql/resolvers';
 import { HeaderFavoriteProductsCount } from './components/HeaderFavoriteProductsCount';
 import { Loading } from './components/Loading';
+import { link } from './graphql/link';
 
 
 const Stack = createStackNavigator();
@@ -30,10 +31,9 @@ export default function() {
       trigger: 'background'
     }).then(() => {
       setClient( new ApolloClient({
-
-        uri: 'http://192.168.56.1:1337/graphql',
+        uri: GRAPHQL_URL,
         cache: cache,
-        resolvers: resolvers
+        resolvers: resolvers,
         }),);
     });
   }, []);

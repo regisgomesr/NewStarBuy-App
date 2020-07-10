@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text, TouchableOpacity } from 'react-native';
-import { BASE_URL, GRAPHQL_URL } from '../config';
+import { View, StyleSheet, Image, Text } from 'react-native';
+import { BASE_URL } from '../config';
 
 import { FavoriteIcon } from './FavoriteIcon.js';
 import { useMutation } from '@apollo/client';
-import {Card} from './Card';
+import { Card } from './Card';
 import { ADD_OR_REMOVE_PRODUCT_FROM_FAVORITE } from '../graphql/requests';
 
 export function Product({ product, onPress }) {
@@ -15,8 +15,10 @@ export function Product({ product, onPress }) {
     },
   });
 
+  // console.log(`${BASE_URL}/uploads/tomate_f28121604c.jpeg`);
+
   return (
-    <Card style={styles.card} onPress={onPress}>
+    <Card key={product.id} style={styles.card} onPress={onPress}>
 
       <Image 
         style={styles.thumb}

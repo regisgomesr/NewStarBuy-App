@@ -34,7 +34,7 @@ export function ProductDetails({ route }) {
     fetchPolicy: 'cache-and-network',
   });
 
-  if(Loading) {
+  if(productLoading) {
     return <Loading hasBackground />
   }
 
